@@ -10,12 +10,14 @@ function csApp() {
         // 통계 데이터
         stats: {},
         recentActivities: [],
+        showAllActivities: false,
         
         // 답변 관리
         approvedAnswers: [],
         searchTerm: '',
         selectedCategory: '',
         showNewAnswerModal: false,
+        showAllAnswers: false,
         editingAnswer: null,
         newAnswer: {
             title: '',
@@ -29,11 +31,13 @@ function csApp() {
         approvalLogs: [],
         logDateFilter: '',
         logStatusFilter: '',
+        showAllLogs: false,
         
         // 자동처리 규칙
         autoRules: [],
         autoProcessingEnabled: true,
         showNewRuleModal: false,
+        showAllRules: false,
         editingRule: null,
         newRule: {
             name: '',
@@ -70,14 +74,23 @@ function csApp() {
                 this.stats = dataManager.getStats();
                 this.recentActivities = this.stats.recentActivities;
                 
-                // 승인된 답변
-                this.approvedAnswers = dataManager.getApprovedAnswers();
+                // 승인된 답변 (expanded 속성 추가)
+                this.approvedAnswers = dataManager.getApprovedAnswers().map(answer => ({
+                    ...answer,
+                    expanded: false
+                }));
                 
-                // 승인 로그
-                this.approvalLogs = dataManager.getApprovalLogs();
+                // 승인 로그 (expanded 속성 추가)
+                this.approvalLogs = dataManager.getApprovalLogs().map(log => ({
+                    ...log,
+                    expanded: false
+                }));
                 
-                // 자동처리 규칙
-                this.autoRules = dataManager.getAutoRules();
+                // 자동처리 규칙 (expanded 속성 추가)
+                this.autoRules = dataManager.getAutoRules().map(rule => ({
+                    ...rule,
+                    expanded: false
+                }));
                 
                 // 차트 초기화 (대시보드가 활성화된 경우)
                 if (this.activeTab === 'dashboard') {

@@ -38,17 +38,17 @@
 <body class="bg-gray-50" x-data="csApp()">
     <!-- 헤더 -->
     <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <span class="text-2xl">🦦</span>
-                    <h1 class="text-2xl font-bold text-gray-900">킵유어핏 CS 대시보드</h1>
+                    <h1 class="text-xl font-bold text-gray-900">킵유어핏 CS 대시보드</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-500" x-text="currentDate"></span>
                     <button 
                         @click="refreshData()"
-                        class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+                        class="bg-primary-500 text-white px-3 py-1.5 rounded-lg hover:bg-primary-600 transition-colors text-sm"
                     >
                         새로고침
                     </button>
@@ -58,36 +58,36 @@
     </header>
 
     <!-- 메인 컨테이너 -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-4">
         
         <!-- 탭 네비게이션 -->
-        <div class="mb-6">
+        <div class="bg-white rounded-lg p-4 shadow-sm">
             <nav class="flex space-x-8">
                 <button 
                     @click="activeTab = 'dashboard'" 
-                    :class="activeTab === 'dashboard' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
-                    class="py-2 px-1 border-b-2 font-medium text-sm"
+                    :class="activeTab === 'dashboard' ? 'border-primary-500 text-primary-600 bg-primary-50' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="py-2 px-3 border-b-2 font-medium text-sm rounded-t"
                 >
                     📊 대시보드
                 </button>
                 <button 
                     @click="activeTab = 'answers'" 
-                    :class="activeTab === 'answers' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
-                    class="py-2 px-1 border-b-2 font-medium text-sm"
+                    :class="activeTab === 'answers' ? 'border-primary-500 text-primary-600 bg-primary-50' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="py-2 px-3 border-b-2 font-medium text-sm rounded-t"
                 >
                     💬 답변 관리
                 </button>
                 <button 
                     @click="activeTab = 'logs'" 
-                    :class="activeTab === 'logs' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
-                    class="py-2 px-1 border-b-2 font-medium text-sm"
+                    :class="activeTab === 'logs' ? 'border-primary-500 text-primary-600 bg-primary-50' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="py-2 px-3 border-b-2 font-medium text-sm rounded-t"
                 >
                     📋 승인 로그
                 </button>
                 <button 
                     @click="activeTab = 'rules'" 
-                    :class="activeTab === 'rules' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
-                    class="py-2 px-1 border-b-2 font-medium text-sm"
+                    :class="activeTab === 'rules' ? 'border-primary-500 text-primary-600 bg-primary-50' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                    class="py-2 px-3 border-b-2 font-medium text-sm rounded-t"
                 >
                     ⚙️ 자동처리 규칙
                 </button>
@@ -95,100 +95,96 @@
         </div>
 
         <!-- 대시보드 탭 -->
-        <div x-show="activeTab === 'dashboard'" class="space-y-6">
+        <div x-show="activeTab === 'dashboard'" class="space-y-4">
             
-            <!-- KPI 카드들 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- KPI 카드들 - 콤팩트하게 -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <!-- 오늘 문의 수 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="bg-white rounded-lg p-3 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <span class="text-2xl">📞</span>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">오늘 문의</dt>
-                                <dd class="text-3xl font-bold text-gray-900" x-text="stats.today.total"></dd>
-                            </dl>
+                        <span class="text-xl mr-2">📞</span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs font-medium text-gray-500 truncate">오늘 문의</p>
+                            <p class="text-xl font-bold text-gray-900" x-text="stats.today.total"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 자동처리율 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="bg-white rounded-lg p-3 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <span class="text-2xl">🤖</span>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">자동처리율</dt>
-                                <dd class="text-3xl font-bold text-gray-900" x-text="stats.automation.rate + '%'"></dd>
-                            </dl>
+                        <span class="text-xl mr-2">🤖</span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs font-medium text-gray-500 truncate">자동처리율</p>
+                            <p class="text-xl font-bold text-gray-900" x-text="stats.automation.rate + '%'"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 승인율 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="bg-white rounded-lg p-3 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <span class="text-2xl">✅</span>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">승인율</dt>
-                                <dd class="text-3xl font-bold text-green-600" x-text="stats.approval.rate + '%'"></dd>
-                            </dl>
+                        <span class="text-xl mr-2">✅</span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs font-medium text-gray-500 truncate">승인율</p>
+                            <p class="text-xl font-bold text-green-600" x-text="stats.approval.rate + '%'"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 평균 응답시간 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="bg-white rounded-lg p-3 shadow-sm">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <span class="text-2xl">⏱️</span>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">평균 응답시간</dt>
-                                <dd class="text-3xl font-bold text-gray-900" x-text="stats.avgResponseTime"></dd>
-                            </dl>
+                        <span class="text-xl mr-2">⏱️</span>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs font-medium text-gray-500 truncate">평균 응답</p>
+                            <p class="text-xl font-bold text-gray-900" x-text="stats.avgResponseTime"></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 차트 섹션 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 차트 섹션 - 높이 줄이기 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <!-- 문의 유형별 통계 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">문의 유형별 통계</h3>
-                    <canvas id="categoryChart" width="400" height="300"></canvas>
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <h3 class="text-md font-medium text-gray-900 mb-2">문의 유형별 통계</h3>
+                    <div style="height: 200px;">
+                        <canvas id="categoryChart" width="400" height="200"></canvas>
+                    </div>
                 </div>
 
                 <!-- 처리 현황 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">처리 현황</h3>
-                    <canvas id="statusChart" width="400" height="300"></canvas>
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <h3 class="text-md font-medium text-gray-900 mb-2">처리 현황</h3>
+                    <div style="height: 200px;">
+                        <canvas id="statusChart" width="400" height="200"></canvas>
+                    </div>
                 </div>
             </div>
 
-            <!-- 최근 활동 -->
-            <div class="bg-white rounded-lg p-6 shadow-sm">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">최근 활동</h3>
-                <div class="space-y-3">
-                    <template x-for="activity in recentActivities" :key="activity.id">
-                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xl mr-3" x-text="activity.icon"></span>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-900" x-text="activity.title"></p>
+            <!-- 최근 활동 - 최대 5개, 높이 제한 -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-md font-medium text-gray-900">최근 활동</h3>
+                    <button 
+                        x-show="recentActivities.length > 5"
+                        @click="showAllActivities = !showAllActivities"
+                        class="text-sm text-primary-600 hover:text-primary-800"
+                        x-text="showAllActivities ? '접기' : '더보기'"
+                    ></button>
+                </div>
+                <div class="space-y-2 max-h-64 overflow-y-auto">
+                    <template x-for="(activity, index) in (showAllActivities ? recentActivities : recentActivities.slice(0, 5))" :key="activity.id">
+                        <div class="flex items-center p-2 bg-gray-50 rounded-lg">
+                            <span class="text-lg mr-2" x-text="activity.icon"></span>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 truncate" x-text="activity.title"></p>
                                 <p class="text-xs text-gray-500" x-text="activity.time"></p>
                             </div>
                             <span 
                                 :class="activity.status === '승인' ? 'bg-green-100 text-green-800' : activity.status === '거부' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'"
-                                class="px-2 py-1 text-xs font-medium rounded-full"
+                                class="px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap"
                                 x-text="activity.status"
                             ></span>
                         </div>
@@ -197,24 +193,24 @@
             </div>
         </div>
 
-        <!-- 답변 관리 탭 -->
-        <div x-show="activeTab === 'answers'" class="space-y-6">
+        <!-- 답변 관리 탭 - 콤팩트 테이블 -->
+        <div x-show="activeTab === 'answers'" class="space-y-4">
             
             <!-- 검색 및 필터 -->
-            <div class="bg-white rounded-lg p-6 shadow-sm">
-                <div class="flex flex-col sm:flex-row gap-4">
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+                <div class="flex flex-col sm:flex-row gap-3">
                     <div class="flex-1">
                         <input 
                             type="text" 
                             x-model="searchTerm"
                             placeholder="답변 내용 또는 키워드로 검색..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                         >
                     </div>
                     <div>
                         <select 
                             x-model="selectedCategory"
-                            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                         >
                             <option value="">전체 카테고리</option>
                             <option value="delivery">배송</option>
@@ -225,77 +221,144 @@
                     </div>
                     <button 
                         @click="showNewAnswerModal = true"
-                        class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+                        class="bg-primary-500 text-white px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors text-sm whitespace-nowrap"
                     >
                         새 답변 추가
                     </button>
                 </div>
             </div>
 
-            <!-- 답변 목록 -->
-            <div class="bg-white rounded-lg shadow-sm">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900">승인된 답변 목록</h3>
+            <!-- 답변 목록 - 콤팩트 테이블 -->
+            <div class="bg-white rounded-lg shadow-sm max-h-96 overflow-y-auto">
+                <div class="px-4 py-3 border-b border-gray-200 bg-gray-50 sticky top-0">
+                    <h3 class="text-md font-medium text-gray-900">승인된 답변 목록</h3>
                 </div>
-                <div class="divide-y divide-gray-200">
-                    <template x-for="answer in filteredAnswers" :key="answer.id">
-                        <div class="p-6">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <div class="flex items-center space-x-2 mb-2">
+                
+                <!-- 모바일: 카드 레이아웃 -->
+                <div class="block sm:hidden">
+                    <template x-for="answer in (showAllAnswers ? filteredAnswers : filteredAnswers.slice(0, 5))" :key="answer.id">
+                        <div class="p-3 border-b border-gray-100">
+                            <div class="flex justify-between items-start mb-2">
+                                <span 
+                                    :class="getCategoryColor(answer.category)"
+                                    class="px-2 py-1 text-xs font-medium rounded-full"
+                                    x-text="getCategoryName(answer.category)"
+                                ></span>
+                                <div class="flex space-x-1">
+                                    <button @click="answer.expanded = !answer.expanded" class="text-primary-600 text-sm">
+                                        <span x-text="answer.expanded ? '접기' : '펼치기'"></span>
+                                    </button>
+                                    <button @click="editAnswer(answer)" class="text-gray-400 hover:text-gray-600">✏️</button>
+                                    <button @click="deleteAnswer(answer.id)" class="text-gray-400 hover:text-red-600">🗑️</button>
+                                </div>
+                            </div>
+                            <h4 class="font-medium text-gray-900 text-sm mb-1" x-text="answer.title"></h4>
+                            <p class="text-sm text-gray-600 mb-2" x-text="answer.content.substring(0, 50) + '...'"></p>
+                            <div x-show="answer.expanded" class="space-y-2">
+                                <p class="text-sm text-gray-700" x-text="answer.content"></p>
+                                <div class="flex flex-wrap gap-1">
+                                    <template x-for="tag in answer.tags" :key="tag">
+                                        <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-md" x-text="tag"></span>
+                                    </template>
+                                </div>
+                                <p class="text-xs text-gray-500">사용횟수: <span x-text="answer.usageCount || 0"></span>회</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- 데스크톱: 테이블 레이아웃 -->
+                <div class="hidden sm:block">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50 sticky top-12">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">카테고리</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">제목</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">내용 미리보기</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">태그</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">사용횟수</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">작업</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="answer in (showAllAnswers ? filteredAnswers : filteredAnswers.slice(0, 5))" :key="answer.id">
+                                <tr class="hover:bg-gray-50 cursor-pointer" @click="answer.expanded = !answer.expanded">
+                                    <td class="px-4 py-3">
                                         <span 
                                             :class="getCategoryColor(answer.category)"
                                             class="px-2 py-1 text-xs font-medium rounded-full"
                                             x-text="getCategoryName(answer.category)"
                                         ></span>
-                                        <span class="text-sm text-gray-500" x-text="answer.createdAt"></span>
-                                    </div>
-                                    <h4 class="text-md font-medium text-gray-900 mb-2" x-text="answer.title"></h4>
-                                    <p class="text-sm text-gray-600 mb-3" x-text="answer.content"></p>
-                                    <div class="flex flex-wrap gap-1">
-                                        <template x-for="tag in answer.tags" :key="tag">
-                                            <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-md" x-text="tag"></span>
-                                        </template>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2 ml-4">
-                                    <button 
-                                        @click="editAnswer(answer)"
-                                        class="text-gray-400 hover:text-gray-600"
-                                    >
-                                        ✏️
-                                    </button>
-                                    <button 
-                                        @click="deleteAnswer(answer.id)"
-                                        class="text-gray-400 hover:text-red-600"
-                                    >
-                                        🗑️
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900 max-w-32 truncate" x-text="answer.title"></td>
+                                    <td class="px-4 py-3 text-sm text-gray-600 max-w-48 truncate" x-text="answer.content.substring(0, 50) + '...'"></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex flex-wrap gap-1 max-w-32">
+                                            <template x-for="tag in answer.tags.slice(0, 2)" :key="tag">
+                                                <span class="px-1 py-0.5 text-xs bg-blue-100 text-blue-800 rounded" x-text="tag"></span>
+                                            </template>
+                                            <span x-show="answer.tags.length > 2" class="text-xs text-gray-500">+더</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="answer.usageCount || 0"></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-1" @click.stop>
+                                            <button @click="editAnswer(answer)" class="text-gray-400 hover:text-gray-600">✏️</button>
+                                            <button @click="deleteAnswer(answer.id)" class="text-gray-400 hover:text-red-600">🗑️</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr x-show="answer.expanded" class="bg-gray-50">
+                                    <td colspan="6" class="px-4 py-3">
+                                        <div class="space-y-2">
+                                            <div>
+                                                <h4 class="text-sm font-medium text-gray-900">전체 답변 내용:</h4>
+                                                <p class="text-sm text-gray-700 mt-1" x-text="answer.content"></p>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-sm font-medium text-gray-900">모든 태그:</h4>
+                                                <div class="flex flex-wrap gap-1 mt-1">
+                                                    <template x-for="tag in answer.tags" :key="tag">
+                                                        <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-md" x-text="tag"></span>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 더보기 버튼 -->
+                <div x-show="filteredAnswers.length > 5" class="p-3 border-t bg-gray-50 text-center">
+                    <button 
+                        @click="showAllAnswers = !showAllAnswers"
+                        class="text-sm text-primary-600 hover:text-primary-800"
+                        x-text="showAllAnswers ? '접기' : '더보기 (' + (filteredAnswers.length - 5) + '개)'"
+                    ></button>
                 </div>
             </div>
         </div>
 
-        <!-- 승인 로그 탭 -->
-        <div x-show="activeTab === 'logs'" class="space-y-6">
+        <!-- 승인 로그 탭 - 콤팩트 테이블 -->
+        <div x-show="activeTab === 'logs'" class="space-y-4">
             
             <!-- 필터 -->
-            <div class="bg-white rounded-lg p-6 shadow-sm">
-                <div class="flex flex-col sm:flex-row gap-4">
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+                <div class="flex flex-col sm:flex-row gap-3">
                     <div class="flex-1">
                         <input 
                             type="date" 
                             x-model="logDateFilter"
-                            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                         >
                     </div>
                     <div>
                         <select 
                             x-model="logStatusFilter"
-                            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                         >
                             <option value="">전체 상태</option>
                             <option value="approved">승인</option>
@@ -306,52 +369,121 @@
                 </div>
             </div>
 
-            <!-- 로그 목록 -->
-            <div class="bg-white rounded-lg shadow-sm">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900">승인 로그</h3>
+            <!-- 로그 목록 - 콤팩트 테이블 -->
+            <div class="bg-white rounded-lg shadow-sm max-h-96 overflow-y-auto">
+                <div class="px-4 py-3 border-b border-gray-200 bg-gray-50 sticky top-0">
+                    <h3 class="text-md font-medium text-gray-900">승인 로그</h3>
                 </div>
-                <div class="divide-y divide-gray-200">
-                    <template x-for="log in filteredLogs" :key="log.id">
-                        <div class="p-6">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <div class="flex items-center space-x-2 mb-2">
-                                        <span 
-                                            :class="getStatusColor(log.status)"
-                                            class="px-2 py-1 text-xs font-medium rounded-full"
-                                            x-text="getStatusName(log.status)"
-                                        ></span>
-                                        <span class="text-sm text-gray-500" x-text="log.timestamp"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h4 class="font-medium text-gray-900">문의 내용:</h4>
-                                        <p class="text-sm text-gray-600" x-text="log.inquiry"></p>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h4 class="font-medium text-gray-900">답변 초안:</h4>
-                                        <p class="text-sm text-gray-600" x-text="log.draftAnswer"></p>
-                                    </div>
-                                    <div x-show="log.rejectionReason" class="mb-3">
-                                        <h4 class="font-medium text-red-600">거부 사유:</h4>
-                                        <p class="text-sm text-red-600" x-text="log.rejectionReason"></p>
-                                    </div>
+                
+                <!-- 모바일: 카드 레이아웃 -->
+                <div class="block sm:hidden">
+                    <template x-for="log in (showAllLogs ? filteredLogs : filteredLogs.slice(0, 5))" :key="log.id">
+                        <div class="p-3 border-b border-gray-100">
+                            <div class="flex justify-between items-start mb-2">
+                                <span 
+                                    :class="getStatusColor(log.status)"
+                                    class="px-2 py-1 text-xs font-medium rounded-full"
+                                    x-text="getStatusName(log.status)"
+                                ></span>
+                                <button @click="log.expanded = !log.expanded" class="text-primary-600 text-sm">
+                                    <span x-text="log.expanded ? '접기' : '상세'"></span>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-1" x-text="log.timestamp"></p>
+                            <p class="text-sm text-gray-900 mb-1" x-text="log.inquiry.substring(0, 50) + '...'"></p>
+                            <p class="text-xs text-gray-600" x-text="getCategoryName(log.category)"></p>
+                            
+                            <div x-show="log.expanded" class="mt-3 space-y-2 pt-2 border-t">
+                                <div>
+                                    <h4 class="text-xs font-medium text-gray-900">전체 문의:</h4>
+                                    <p class="text-sm text-gray-600" x-text="log.inquiry"></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-medium text-gray-900">답변 초안:</h4>
+                                    <p class="text-sm text-gray-600" x-text="log.draftAnswer"></p>
+                                </div>
+                                <div x-show="log.rejectionReason">
+                                    <h4 class="text-xs font-medium text-red-600">거부 사유:</h4>
+                                    <p class="text-sm text-red-600" x-text="log.rejectionReason"></p>
                                 </div>
                             </div>
                         </div>
                     </template>
                 </div>
+
+                <!-- 데스크톱: 테이블 레이아웃 -->
+                <div class="hidden sm:block">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50 sticky top-12">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">시간</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">상태</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">문의 미리보기</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">카테고리</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">상세</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="log in (showAllLogs ? filteredLogs : filteredLogs.slice(0, 5))" :key="log.id">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-xs text-gray-500" x-text="log.timestamp.substring(5, 16)"></td>
+                                    <td class="px-4 py-3">
+                                        <span 
+                                            :class="getStatusColor(log.status)"
+                                            class="px-2 py-1 text-xs font-medium rounded-full"
+                                            x-text="getStatusName(log.status)"
+                                        ></span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900 max-w-64 truncate" x-text="log.inquiry.substring(0, 50) + '...'"></td>
+                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="getCategoryName(log.category)"></td>
+                                    <td class="px-4 py-3">
+                                        <button @click="log.expanded = !log.expanded" class="text-primary-600 hover:text-primary-800 text-sm">
+                                            <span x-text="log.expanded ? '접기' : '상세'"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr x-show="log.expanded" class="bg-gray-50">
+                                    <td colspan="5" class="px-4 py-3">
+                                        <div class="space-y-2">
+                                            <div>
+                                                <h4 class="text-sm font-medium text-gray-900">전체 문의:</h4>
+                                                <p class="text-sm text-gray-700 mt-1" x-text="log.inquiry"></p>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-sm font-medium text-gray-900">답변 초안:</h4>
+                                                <p class="text-sm text-gray-700 mt-1" x-text="log.draftAnswer"></p>
+                                            </div>
+                                            <div x-show="log.rejectionReason">
+                                                <h4 class="text-sm font-medium text-red-600">거부 사유:</h4>
+                                                <p class="text-sm text-red-600 mt-1" x-text="log.rejectionReason"></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 더보기 버튼 -->
+                <div x-show="filteredLogs.length > 5" class="p-3 border-t bg-gray-50 text-center">
+                    <button 
+                        @click="showAllLogs = !showAllLogs"
+                        class="text-sm text-primary-600 hover:text-primary-800"
+                        x-text="showAllLogs ? '접기' : '더보기 (' + (filteredLogs.length - 5) + '개)'"
+                    ></button>
+                </div>
             </div>
         </div>
 
-        <!-- 자동처리 규칙 탭 -->
-        <div x-show="activeTab === 'rules'" class="space-y-6">
+        <!-- 자동처리 규칙 탭 - 콤팩트 -->
+        <div x-show="activeTab === 'rules'" class="space-y-4">
             
             <!-- 전체 자동처리 토글 -->
-            <div class="bg-white rounded-lg p-6 shadow-sm">
+            <div class="bg-white rounded-lg p-4 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900">자동처리 시스템</h3>
+                        <h3 class="text-md font-medium text-gray-900">자동처리 시스템</h3>
                         <p class="text-sm text-gray-500">승인된 답변을 기반으로 자동 응답</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
@@ -361,61 +493,121 @@
                 </div>
             </div>
 
-            <!-- 규칙 목록 -->
-            <div class="bg-white rounded-lg shadow-sm">
-                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                    <h3 class="text-lg font-medium text-gray-900">처리 규칙</h3>
+            <!-- 규칙 목록 - 콤팩트 -->
+            <div class="bg-white rounded-lg shadow-sm max-h-96 overflow-y-auto">
+                <div class="px-4 py-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center sticky top-0">
+                    <h3 class="text-md font-medium text-gray-900">처리 규칙</h3>
                     <button 
                         @click="showNewRuleModal = true"
-                        class="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+                        class="bg-primary-500 text-white px-3 py-1.5 rounded-lg hover:bg-primary-600 transition-colors text-sm"
                     >
                         새 규칙 추가
                     </button>
                 </div>
-                <div class="divide-y divide-gray-200">
-                    <template x-for="rule in autoRules" :key="rule.id">
-                        <div class="p-6">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <div class="flex items-center space-x-2 mb-2">
-                                        <span 
-                                            :class="rule.enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'"
-                                            class="px-2 py-1 text-xs font-medium rounded-full"
-                                            x-text="rule.enabled ? '활성' : '비활성'"
-                                        ></span>
-                                        <span class="text-sm text-gray-500" x-text="getCategoryName(rule.category)"></span>
-                                    </div>
-                                    <h4 class="font-medium text-gray-900 mb-2" x-text="rule.name"></h4>
-                                    <p class="text-sm text-gray-600 mb-2">
-                                        키워드: <span class="font-mono bg-gray-100 px-2 py-1 rounded" x-text="rule.keywords.join(', ')"></span>
-                                    </p>
-                                    <p class="text-sm text-gray-600">
-                                        답변: <span x-text="rule.response"></span>
-                                    </p>
+                
+                <!-- 모바일: 카드 레이아웃 -->
+                <div class="block sm:hidden">
+                    <template x-for="rule in (showAllRules ? autoRules : autoRules.slice(0, 5))" :key="rule.id">
+                        <div class="p-3 border-b border-gray-100">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" :checked="rule.enabled" @click="toggleRule(rule.id)" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"></div>
+                                    </label>
+                                    <span 
+                                        :class="rule.enabled ? 'text-green-600' : 'text-gray-400'"
+                                        class="text-xs font-medium"
+                                        x-text="rule.enabled ? '활성' : '비활성'"
+                                    ></span>
                                 </div>
-                                <div class="flex space-x-2 ml-4">
-                                    <button 
-                                        @click="toggleRule(rule.id)"
-                                        :class="rule.enabled ? 'text-green-600 hover:text-green-800' : 'text-gray-400 hover:text-gray-600'"
-                                    >
-                                        <span x-text="rule.enabled ? '⏸️' : '▶️'"></span>
+                                <div class="flex space-x-1">
+                                    <button @click="rule.expanded = !rule.expanded" class="text-primary-600 text-sm">
+                                        <span x-text="rule.expanded ? '접기' : '상세'"></span>
                                     </button>
-                                    <button 
-                                        @click="editRule(rule)"
-                                        class="text-gray-400 hover:text-gray-600"
-                                    >
-                                        ✏️
-                                    </button>
-                                    <button 
-                                        @click="deleteRule(rule.id)"
-                                        class="text-gray-400 hover:text-red-600"
-                                    >
-                                        🗑️
-                                    </button>
+                                    <button @click="editRule(rule)" class="text-gray-400 hover:text-gray-600">✏️</button>
+                                    <button @click="deleteRule(rule.id)" class="text-gray-400 hover:text-red-600">🗑️</button>
+                                </div>
+                            </div>
+                            <h4 class="font-medium text-gray-900 text-sm mb-1" x-text="rule.name"></h4>
+                            <p class="text-xs text-gray-600 mb-1">
+                                <span x-text="getCategoryName(rule.category)"></span> • 
+                                키워드: <span x-text="rule.keywords.slice(0, 2).join(', ')"></span><span x-show="rule.keywords.length > 2">...</span>
+                            </p>
+                            <p class="text-xs text-gray-500">매칭: <span x-text="rule.matchCount || 0"></span>회</p>
+                            
+                            <div x-show="rule.expanded" class="mt-3 space-y-2 pt-2 border-t">
+                                <div>
+                                    <h4 class="text-xs font-medium text-gray-900">모든 키워드:</h4>
+                                    <p class="text-sm text-gray-600" x-text="rule.keywords.join(', ')"></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-medium text-gray-900">자동 답변:</h4>
+                                    <p class="text-sm text-gray-600" x-text="rule.response"></p>
                                 </div>
                             </div>
                         </div>
                     </template>
+                </div>
+
+                <!-- 데스크톱: 테이블 레이아웃 -->
+                <div class="hidden sm:block">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50 sticky top-12">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">상태</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">이름</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">카테고리</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">키워드</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">매칭수</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">작업</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="rule in (showAllRules ? autoRules : autoRules.slice(0, 5))" :key="rule.id">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" :checked="rule.enabled" @click="toggleRule(rule.id)" class="sr-only peer">
+                                            <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"></div>
+                                        </label>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900 max-w-32 truncate" x-text="rule.name"></td>
+                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="getCategoryName(rule.category)"></td>
+                                    <td class="px-4 py-3 text-sm text-gray-600 max-w-32 truncate" x-text="rule.keywords.join(', ')"></td>
+                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="rule.matchCount || 0"></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-1">
+                                            <button @click="rule.expanded = !rule.expanded" class="text-primary-600 hover:text-primary-800 text-sm">
+                                                <span x-text="rule.expanded ? '접기' : '상세'"></span>
+                                            </button>
+                                            <button @click="editRule(rule)" class="text-gray-400 hover:text-gray-600">✏️</button>
+                                            <button @click="deleteRule(rule.id)" class="text-gray-400 hover:text-red-600">🗑️</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr x-show="rule.expanded" class="bg-gray-50">
+                                    <td colspan="6" class="px-4 py-3">
+                                        <div class="space-y-2">
+                                            <div>
+                                                <h4 class="text-sm font-medium text-gray-900">자동 답변 내용:</h4>
+                                                <p class="text-sm text-gray-700 mt-1" x-text="rule.response"></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 더보기 버튼 -->
+                <div x-show="autoRules.length > 5" class="p-3 border-t bg-gray-50 text-center">
+                    <button 
+                        @click="showAllRules = !showAllRules"
+                        class="text-sm text-primary-600 hover:text-primary-800"
+                        x-text="showAllRules ? '접기' : '더보기 (' + (autoRules.length - 5) + '개)'"
+                    ></button>
                 </div>
             </div>
         </div>
