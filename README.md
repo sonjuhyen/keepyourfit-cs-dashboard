@@ -10,15 +10,18 @@
 - JSON 파일 기반 REST API (`/api/answers`, `/api/logs`, `/api/rules`)
 - 프론트엔드 `fetch` 기반 데이터 로드/수정
 - `data/*.json` 초기 운영 데이터
+- `/api/status` 기반 운영 진단 데이터
+  - `/tmp/dobi-approvals` 승인 파일 현황
+  - `agents-dobi/LEARNINGS.md` 자동답변 패턴 개수와 미리보기
 
 ### 아직 안 붙은 것
 - 채널톡 실시간 문의 수집
-- `/tmp/dobi-approvals` 직접 반영
-- `LEARNINGS.md` 자동 파싱 반영
+- `/tmp/dobi-approvals` 직접 반영 후 액션 수행
 - Cafe24 주문 조회 연동
 - 인증/권한 관리
+- 외부 공개용 안전한 배포 경로
 
-즉, 이번 버전은 **localStorage 목업 탈피 + 로컬 운영 콘솔 기반 마련**까지 완료된 상태입니다.
+즉, 이번 버전은 **localStorage 목업 탈피 + 로컬 운영 콘솔 기반 마련 + 승인/학습 파일 read-only 연동**까지 완료된 상태입니다.
 
 ## 파일 구조
 
@@ -46,20 +49,26 @@ cd /Users/son/.openclaw/workspace/projects/keepyourfit-cs-dashboard
 npm start
 ```
 
-브라우저에서 아래 주소로 접속합니다.
+브라우저 접속:
 
-```text
-http://localhost:3000
-```
+- 로컬: <http://localhost:3000>
+- 같은 Wi-Fi/LAN: <http://192.168.0.36:3000>
 
-## 기술 스택
+## 외부 공개 관련
 
-- HTML5
-- Tailwind CSS (CDN)
-- Alpine.js (CDN)
-- Chart.js (CDN)
-- Node.js 기본 `http` 서버
-- JSON 파일 저장소
+현재 OpenClaw gateway 설정은 아래 상태입니다.
+- `gateway.bind=loopback`
+- `gateway.tailscale.mode=off`
+- `gateway.remote.url` 없음
+- `publicUrl` 없음
+
+그래서 **인터넷 외부에서 바로 접속 가능한 공식 공개 URL은 아직 없습니다.**
+현재는 같은 네트워크 내부 접속만 확실합니다.
+
+외부 공개를 하려면 아래 중 하나가 필요합니다.
+1. Tailscale Serve/Funnel 구성
+2. 리버스 프록시 + 도메인(public URL) 구성
+3. 공유기 포트포워딩 (권장도 낮음)
 
 ## 동작 방식
 
@@ -67,26 +76,29 @@ http://localhost:3000
 2. `js/data.js`가 localStorage 대신 API를 호출합니다.
 3. `js/app.js`는 async/await 기반으로 데이터를 불러오고 저장합니다.
 4. 데이터는 `data/*.json`에 저장됩니다.
+5. 운영 진단은 `LEARNINGS.md`, `/tmp/dobi-approvals`를 읽기 전용으로 반영합니다.
 
 ## 주의사항
 
 - 현재는 인증 없는 로컬 내부 도구입니다.
 - 다중 사용자 동시 편집 충돌 방지는 아직 없습니다.
-- 운영 실데이터와 자동 동기화되지는 않습니다.
+- 채널톡/Cafe24 실데이터와 자동 동기화되지는 않습니다.
 - 외부 공개 배포용이 아니라 내부 운영 보조용입니다.
 
 ## 다음 단계 제안
 
-1. `/tmp/dobi-approvals` 읽기 전용 API 추가
-2. `LEARNINGS.md` 파싱 API 추가
-3. 채널톡/승인 상태 진단 카드 추가
-4. Cafe24 조회 결과 패널 추가
-5. 읽기 전용 운영 진단판과 편집 기능 분리
+1. 공개 접속 경로 확정 (Tailscale 또는 리버스 프록시)
+2. `/tmp/dobi-approvals` 읽기 전용에서 상태 카드 고도화
+3. `LEARNINGS.md` 패턴 목록 상세 파싱
+4. 채널톡/승인 상태 진단 카드 추가
+5. Cafe24 조회 결과 패널 추가
+6. 읽기 전용 운영 진단판과 편집 기능 분리
 
 ## 변경 요약
 
 - `js/data.js`: localStorage → fetch/API 구조 전환
 - `js/app.js`: async/await 기반 로딩 및 저장 흐름 보완
-- `server.js`: 신규 추가
+- `server.js`: JSON API + 운영 상태 API 추가
 - `package.json`: 신규 추가
 - `data/*.json`: 신규 추가
+- `index.html`: 승인 파일 상태 / LEARNINGS 상태 카드 추가

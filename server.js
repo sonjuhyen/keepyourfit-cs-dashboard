@@ -4,6 +4,9 @@ const path = require('node:path');
 
 const PORT = 3000;
 const DATA_DIR = path.join(__dirname, 'data');
+const DOBI_DIR = '/Users/son/.openclaw/workspace/agents-dobi';
+const LEARNINGS_PATH = path.join(DOBI_DIR, 'LEARNINGS.md');
+const APPROVALS_DIR = '/tmp/dobi-approvals';
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -23,6 +26,63 @@ function readJSON(name) {
 
 function writeJSON(name, data) {
   fs.writeFileSync(path.join(DATA_DIR, `${name}.json`), JSON.stringify(data, null, 2), 'utf-8');
+}
+
+function getApprovalStatus() {
+  const result = {
+    directory: APPROVALS_DIR,
+    exists: fs.existsSync(APPROVALS_DIR),
+    pendingCount: 0,
+    approvedCount: 0,
+    sentCount: 0,
+    files: []
+  };
+
+  if (!result.exists) return result;
+
+  const files = fs.readdirSync(APPROVALS_DIR).sort();
+  result.files = files;
+  result.pendingCount = files.filter(name => !name.endsWith('.approved') && !name.includes('.sent.')).length;
+  result.approvedCount = files.filter(name => name.endsWith('.approved')).length;
+  result.sentCount = files.filter(name => name.includes('.sent.')).length;
+  return result;
+}
+
+function getLearningsStatus() {
+  const result = {
+    path: LEARNINGS_PATH,
+    exists: fs.existsSync(LEARNINGS_PATH),
+    autoReplyPatternCount: 0,
+    spamPatternSection: false,
+    lastModifiedAt: null,
+    preview: []
+  };
+
+  if (!result.exists) return result;
+
+  const text = fs.readFileSync(LEARNINGS_PATH, 'utf-8');
+  const stat = fs.statSync(LEARNINGS_PATH);
+  result.lastModifiedAt = stat.mtime.toISOString();
+  result.autoReplyPatternCount = (text.match(/^### 패턴:/gm) || []).length;
+  result.spamPatternSection = text.includes('## 🚫 스팸 패턴');
+  result.preview = text.split('\n').slice(0, 20);
+  return result;
+}
+
+function getWorkflowStatus() {
+  return {
+    approvals: getApprovalStatus(),
+    learnings: getLearningsStatus(),
+    heartbeat: {
+      enabled: true,
+      source: path.join(DOBI_DIR, 'HEARTBEAT.md')
+    },
+    notes: [
+      '승인 없이 고객 전송 금지',
+      '승인 파일 존재 시에만 전송 가능',
+      '현재 대시보드는 read-only 운영 진단 중심 1차 버전'
+    ]
+  };
 }
 
 // 요청 body 파싱
@@ -51,6 +111,10 @@ async function handleAPI(req, res) {
   const resource = parts[1]; // answers | logs | rules
   const id = parts[2] ? Number(parts[2]) : null;
   const method = req.method;
+
+  if (resource === 'status') {
+    return json(res, getWorkflowStatus());
+  }
 
   if (!['answers', 'logs', 'rules'].includes(resource)) {
     return json(res, { error: 'not found' }, 404);

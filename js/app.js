@@ -10,6 +10,7 @@ function csApp() {
         // 통계 데이터
         stats: {},
         recentActivities: [],
+        workflowStatus: null,
         showAllActivities: false,
         
         // 답변 관리
@@ -76,6 +77,7 @@ function csApp() {
                 // 통계 데이터
                 this.stats = dataManager.getStats();
                 this.recentActivities = this.stats.recentActivities;
+                this.workflowStatus = dataManager.getWorkflowStatus();
 
                 // 승인된 답변 (expanded 속성 추가)
                 this.approvedAnswers = dataManager.getApprovedAnswers().map(answer => ({
@@ -370,6 +372,14 @@ function csApp() {
                 pending: 'bg-yellow-100 text-yellow-800'
             };
             return colors[status] || 'bg-gray-100 text-gray-800';
+        },
+
+        get workflowApprovalSummary() {
+            return this.workflowStatus?.approvals || { pendingCount: 0, approvedCount: 0, sentCount: 0, files: [] };
+        },
+
+        get workflowLearningsSummary() {
+            return this.workflowStatus?.learnings || { autoReplyPatternCount: 0, lastModifiedAt: null, preview: [] };
         }
     };
 }

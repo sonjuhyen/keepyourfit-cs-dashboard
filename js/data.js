@@ -3,18 +3,19 @@
 class DataManager {
     constructor() {
         this.base = '/api';
-        this.cache = { answers: null, logs: null, rules: null };
+        this.cache = { answers: null, logs: null, rules: null, status: null };
     }
 
     // === API 호출 ===
 
     async fetchAll() {
-        const [answers, logs, rules] = await Promise.all([
+        const [answers, logs, rules, status] = await Promise.all([
             fetch(`${this.base}/answers`).then(r => r.json()),
             fetch(`${this.base}/logs`).then(r => r.json()),
             fetch(`${this.base}/rules`).then(r => r.json()),
+            fetch(`${this.base}/status`).then(r => r.json()),
         ]);
-        this.cache = { answers, logs, rules };
+        this.cache = { answers, logs, rules, status };
         return this.cache;
     }
 
@@ -95,6 +96,10 @@ class DataManager {
             });
         }
         return rule;
+    }
+
+    getWorkflowStatus() {
+        return this.cache.status || null;
     }
 
     // 자동처리 설정 (클라이언트 로컬)

@@ -191,6 +191,56 @@
                     </template>
                 </div>
             </div>
+
+            <!-- 운영 상태 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <h3 class="text-md font-medium text-gray-900 mb-3">승인 파일 상태</h3>
+                    <div class="grid grid-cols-3 gap-3 mb-3 text-center">
+                        <div class="bg-yellow-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500">대기</p>
+                            <p class="text-lg font-bold text-yellow-700" x-text="workflowApprovalSummary.pendingCount"></p>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500">승인</p>
+                            <p class="text-lg font-bold text-blue-700" x-text="workflowApprovalSummary.approvedCount"></p>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500">전송기록</p>
+                            <p class="text-lg font-bold text-green-700" x-text="workflowApprovalSummary.sentCount"></p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-2" x-text="workflowStatus?.approvals?.directory || ''"></div>
+                    <div class="max-h-40 overflow-y-auto space-y-1 text-sm">
+                        <template x-if="workflowApprovalSummary.files.length === 0">
+                            <p class="text-gray-500">현재 감지된 승인 파일이 없습니다.</p>
+                        </template>
+                        <template x-for="file in workflowApprovalSummary.files" :key="file">
+                            <div class="px-2 py-1 bg-gray-50 rounded text-gray-700 font-mono text-xs" x-text="file"></div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 shadow-sm">
+                    <h3 class="text-md font-medium text-gray-900 mb-3">LEARNINGS 상태</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-3 text-center">
+                        <div class="bg-primary-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500">자동답변 패턴</p>
+                            <p class="text-lg font-bold text-primary-700" x-text="workflowLearningsSummary.autoReplyPatternCount"></p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-xs text-gray-500">최근 수정</p>
+                            <p class="text-xs font-medium text-gray-700 break-all" x-text="workflowLearningsSummary.lastModifiedAt || '-' "></p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-2" x-text="workflowStatus?.learnings?.path || ''"></div>
+                    <div class="max-h-40 overflow-y-auto space-y-1 text-xs text-gray-700 bg-gray-50 rounded p-2">
+                        <template x-for="line in workflowLearningsSummary.preview" :key="line + Math.random()">
+                            <div x-text="line"></div>
+                        </template>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 답변 관리 탭 - 콤팩트 테이블 -->
