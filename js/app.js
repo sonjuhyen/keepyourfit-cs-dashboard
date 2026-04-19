@@ -48,8 +48,8 @@ function csApp() {
         },
 
         // 초기화
-        init() {
-            this.loadData();
+        async init() {
+            await this.loadData();
             this.autoProcessingEnabled = dataManager.getAutoProcessingEnabled();
             
             // 창 크기 변경 시 차트 리사이즈
@@ -66,37 +66,40 @@ function csApp() {
         },
 
         // 데이터 로드
-        loadData() {
+        async loadData() {
             this.loading = true;
-            
+
             try {
+                // API에서 전체 데이터 fetch
+                await dataManager.fetchAll();
+
                 // 통계 데이터
                 this.stats = dataManager.getStats();
                 this.recentActivities = this.stats.recentActivities;
-                
+
                 // 승인된 답변 (expanded 속성 추가)
                 this.approvedAnswers = dataManager.getApprovedAnswers().map(answer => ({
                     ...answer,
                     expanded: false
                 }));
-                
+
                 // 승인 로그 (expanded 속성 추가)
                 this.approvalLogs = dataManager.getApprovalLogs().map(log => ({
                     ...log,
                     expanded: false
                 }));
-                
+
                 // 자동처리 규칙 (expanded 속성 추가)
                 this.autoRules = dataManager.getAutoRules().map(rule => ({
                     ...rule,
                     expanded: false
                 }));
-                
+
                 // 차트 초기화 (대시보드가 활성화된 경우)
                 if (this.activeTab === 'dashboard') {
                     setTimeout(() => chartManager.initCharts(this.stats), 100);
                 }
-                
+
             } catch (error) {
                 console.error('데이터 로드 실패:', error);
                 alert('데이터를 불러오는 중 오류가 발생했습니다.');
@@ -106,8 +109,8 @@ function csApp() {
         },
 
         // 데이터 새로고침
-        refreshData() {
-            this.loadData();
+        async refreshData() {
+            await this.loadData();
             alert('데이터가 새로고침되었습니다! 🦦');
         },
 
@@ -171,7 +174,7 @@ function csApp() {
         },
 
         // 새 답변 저장
-        saveNewAnswer() {
+        async saveNewAnswer() {
             try {
                 // 태그 처리
                 this.newAnswer.tags = this.newAnswer.tagsInput
@@ -185,10 +188,10 @@ function csApp() {
                 }
 
                 // 저장
-                dataManager.saveApprovedAnswer({ ...this.newAnswer });
+                await dataManager.saveApprovedAnswer({ ...this.newAnswer });
                 
                 // 데이터 새로고침
-                this.loadData();
+                await this.loadData();
                 
                 // 모달 닫기
                 this.closeNewAnswerModal();
@@ -202,11 +205,11 @@ function csApp() {
         },
 
         // 답변 삭제
-        deleteAnswer(answerId) {
+        async deleteAnswer(answerId) {
             if (confirm('정말로 이 답변을 삭제하시겠습니까?')) {
                 try {
-                    dataManager.deleteApprovedAnswer(answerId);
-                    this.loadData();
+                    await dataManager.deleteApprovedAnswer(answerId);
+                    await this.loadData();
                     alert('답변이 삭제되었습니다.');
                 } catch (error) {
                     console.error('답변 삭제 실패:', error);
@@ -278,7 +281,7 @@ function csApp() {
         },
 
         // 새 규칙 저장
-        saveNewRule() {
+        async saveNewRule() {
             try {
                 // 키워드 처리
                 this.newRule.keywords = this.newRule.keywordsInput
@@ -294,10 +297,10 @@ function csApp() {
                 }
 
                 // 저장
-                dataManager.saveAutoRule({ ...this.newRule });
+                await dataManager.saveAutoRule({ ...this.newRule });
                 
                 // 데이터 새로고침
-                this.loadData();
+                await this.loadData();
                 
                 // 모달 닫기
                 this.closeNewRuleModal();
@@ -311,10 +314,10 @@ function csApp() {
         },
 
         // 규칙 토글
-        toggleRule(ruleId) {
+        async toggleRule(ruleId) {
             try {
-                const rule = dataManager.toggleAutoRule(ruleId);
-                this.loadData();
+                const rule = await dataManager.toggleAutoRule(ruleId);
+                await this.loadData();
                 alert(`규칙이 ${rule.enabled ? '활성화' : '비활성화'}되었습니다.`);
             } catch (error) {
                 console.error('규칙 토글 실패:', error);
@@ -323,11 +326,11 @@ function csApp() {
         },
 
         // 규칙 삭제
-        deleteRule(ruleId) {
+        async deleteRule(ruleId) {
             if (confirm('정말로 이 규칙을 삭제하시겠습니까?')) {
                 try {
-                    dataManager.deleteAutoRule(ruleId);
-                    this.loadData();
+                    await dataManager.deleteAutoRule(ruleId);
+                    await this.loadData();
                     alert('규칙이 삭제되었습니다.');
                 } catch (error) {
                     console.error('규칙 삭제 실패:', error);

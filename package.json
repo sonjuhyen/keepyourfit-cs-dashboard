@@ -1,0 +1,9 @@
+{
+  "name": "keepyourfit-cs-dashboard",
+  "version": "1.0.0",
+  "description": "킵유어핏 CS 대시보드 API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

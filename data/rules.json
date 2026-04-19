@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "섭취법 문의 자동 응답",
+    "category": "product",
+    "keywords": ["섭취법", "복용법", "먹는법", "언제", "시간"],
+    "response": "하루 2회, 아침 식후와 저녁 식후에 물과 함께 섭취해 주세요. 공복 섭취는 위장 장애를 유발할 수 있으니 피해주세요.",
+    "enabled": true,
+    "matchCount": 15
+  },
+  {
+    "id": 2,
+    "name": "용량 문의 자동 응답",
+    "category": "product",
+    "keywords": ["용량", "몇개", "캡슐", "알", "개수"],
+    "response": "한 병당 60캡슐이 들어있으며, 하루 2캡슐 섭취 시 약 30일간 드실 수 있습니다.",
+    "enabled": true,
+    "matchCount": 8
+  },
+  {
+    "id": 3,
+    "name": "스팸 자동 차단",
+    "category": "general",
+    "keywords": ["무료샘플", "!!!!", "공짜", "이벤트", "당첨"],
+    "response": "[자동차단] 스팸성 문의로 분류되었습니다.",
+    "enabled": true,
+    "matchCount": 5
+  }
+]
