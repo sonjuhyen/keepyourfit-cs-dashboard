@@ -67,7 +67,8 @@ for f in sorted(os.listdir(approval_dir)):
                 "isModified": meta.get("isModified", False),
                 "status": "sent",
                 "timestamp": meta.get("approvedAt", mtime_str),
-                "messagePreview": preview
+                "messagePreview": preview,
+                "messageFull": message
             }
         except: pass
 

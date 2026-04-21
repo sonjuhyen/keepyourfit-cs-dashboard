@@ -35,7 +35,7 @@ class DataManager {
                     id: i + 1,
                     timestamp: displayTime,
                     inquiry: log.messagePreview || log.chatId || log.draftKey || '',
-                    draftAnswer: log.messagePreview || '',
+                    draftAnswer: log.messageFull || log.messagePreview || '',
                     status: log.status === 'sent' ? 'approved' : log.status,
                     category: 'general',
                     chatId: log.chatId || '',
