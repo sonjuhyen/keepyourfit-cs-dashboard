@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/api/status", "destination": "/api/status.js" },
+    { "source": "/api/answers", "destination": "/api/answers.js" },
+    { "source": "/api/logs", "destination": "/api/logs.js" },
+    { "source": "/api/rules", "destination": "/api/rules.js" },
+    { "source": "/api/answers/:id", "destination": "/api/answers/[id].js" },
+    { "source": "/api/logs/:id", "destination": "/api/logs/[id].js" },
+    { "source": "/api/rules/:id", "destination": "/api/rules/[id].js" }
+  ]
+}
