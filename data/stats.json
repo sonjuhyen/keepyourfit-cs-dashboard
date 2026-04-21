@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-04-21T11:26:09Z",
+    "generatedAt": "2026-04-21T11:41:08Z",
     "date": "2026-04-21",
     "source": "collect-stats.sh"
   },
@@ -12,58 +12,102 @@
     "logs": [
       {
         "draftKey": "69e599e6b3427108b595__1776654840.907229",
+        "chatId": "69e599e6b3427108b595",
+        "approver": "harry",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-20 12:15"
+        "timestamp": "2026-04-20T03:15:20.491Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n대량구매 및 공동구매 관련 문의는 이메일 <mailto:suppo..."
       },
       {
         "draftKey": "69e5814c7c9b4646816b__1776648562.059669",
+        "chatId": "69e5814c7c9b4646816b",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-20 10:48"
+        "timestamp": "2026-04-20T01:48:33.460Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n올레톡스는 임산부, 수유부, 특정 성분 알레르기 체질은 성분 확인..."
       },
       {
         "draftKey": "69e39fe2897c87c50138__1776525840.831029",
+        "chatId": "69e39fe2897c87c50138",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:37"
+        "timestamp": "2026-04-18T15:37:27.345Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n남겨주신 정보로는 회원 주문 확인이 되지 않았습니다.\n\n스마트스토..."
       },
       {
         "draftKey": "69e39fe2897c87c50138__1776525565.896929",
+        "chatId": "69e39fe2897c87c50138",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:23"
+        "timestamp": "2026-04-18T15:23:26.907Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n남겨주신 연락처로는 회원 주문 확인이 되지 않았습니다.\n\n스마트스..."
       },
       {
         "draftKey": "69e39fe2897c87c50138__1776525359.738539",
+        "chatId": "69e39fe2897c87c50138",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:18"
+        "timestamp": "2026-04-18T15:18:11.254Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n배송 문의 주셔서 감사합니다.\n\n결제 완료 후 영업일 기준 1~3..."
       },
       {
         "draftKey": "69e39fe2897c87c50138__1776525329.315849",
+        "chatId": "69e39fe2897c87c50138",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:15"
+        "timestamp": "2026-04-18T15:15:40.850Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n문의주신 제품은 올블톡스입니다.\n\n성인 기준 1일 1~2회, 1회..."
       },
       {
         "draftKey": "69e39fe2897c87c50138__1776525298.196979",
+        "chatId": "69e39fe2897c87c50138",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:15"
+        "timestamp": "2026-04-18T15:15:10.914Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n복용방법 문의 주셔서 감사합니다.\n\n제품마다 권장 섭취량과 복용 ..."
       },
       {
         "draftKey": "69e39d811c6369955442",
+        "chatId": "69e39d811c6369955442",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-19 00:05"
+        "timestamp": "2026-04-18T15:05:26.053Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n복용방법 문의 주셔서 감사합니다.\n\n제품마다 권장 섭취량과 복용 ..."
       },
       {
         "draftKey": "69e389709fcef207efd4",
+        "chatId": "69e389709fcef207efd4",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-18 22:39"
+        "timestamp": "2026-04-18T13:39:27.495Z",
+        "messagePreview": "안녕하세요, 킵유어핏입니다 :blush:\n\n주문 조회를 위해 주문자 성함과 연락처를 남겨주세요.\n확인되는 내..."
       },
       {
         "draftKey": "69e37c35f098b451d5bc",
+        "chatId": "69e37c35f098b451d5bc",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-18 21:42"
+        "timestamp": "2026-04-18T12:42:55.159Z",
+        "messagePreview": "안녕하세요 고객님, 주문 조회를 위해 주문자 성함과 연락처를 남겨주시면 바로 확인해드리겠습니다.\n확인되는 내..."
       },
       {
         "draftKey": "69e37591f25cd0c47766",
+        "chatId": "69e37591f25cd0c47766",
+        "approver": "son",
+        "isModified": false,
         "status": "sent",
-        "timestamp": "2026-04-18 21:15"
+        "timestamp": "2026-04-18T12:15:27.075Z",
+        "messagePreview": "안녕하세요 고객님, 주문 조회를 위해 주문자 성함과 연락처를 남겨주시면 바로 확인해드리겠습니다.\n확인되는 내..."
       }
     ]
   },

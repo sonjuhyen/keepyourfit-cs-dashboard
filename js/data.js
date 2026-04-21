@@ -28,16 +28,22 @@ class DataManager {
         const { approvals, learnings, spam } = this.liveData;
 
         if (approvals?.logs?.length) {
-            const logs = approvals.logs.map((log, i) => ({
-                id: i + 1,
-                timestamp: log.timestamp || '',
-                inquiry: log.customer || log.draftKey || '',
-                draftAnswer: '',
-                status: log.status === 'sent' ? 'approved' : log.status,
-                category: 'general',
-                chatId: log.chatId || log.draftKey,
-                rejectionReason: null
-            }));
+            const logs = approvals.logs.map((log, i) => {
+                const ts = log.timestamp || '';
+                const displayTime = ts.includes('T') ? new Date(ts).toLocaleString('ko-KR') : ts;
+                return {
+                    id: i + 1,
+                    timestamp: displayTime,
+                    inquiry: log.messagePreview || log.chatId || log.draftKey || '',
+                    draftAnswer: log.messagePreview || '',
+                    status: log.status === 'sent' ? 'approved' : log.status,
+                    category: 'general',
+                    chatId: log.chatId || '',
+                    approver: log.approver || '',
+                    isModified: log.isModified || false,
+                    rejectionReason: null
+                };
+            });
             localStorage.setItem('approvalLogs', JSON.stringify(logs));
         }
 

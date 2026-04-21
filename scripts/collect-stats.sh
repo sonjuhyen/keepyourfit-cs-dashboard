@@ -37,32 +37,68 @@ echo "[2/4] 승인 로그 수집..."
 APPROVAL_LOG="[]"
 if [ -d "$APPROVAL_DIR" ]; then
   APPROVAL_LOG=$(python3 - <<'PY' "$APPROVAL_DIR" "$TODAY"
-import os, sys, json, time
+import os, sys, json, time, glob
 approval_dir = sys.argv[1]
 today = sys.argv[2]
-logs = []
 
-for f in sorted(os.listdir(approval_dir), reverse=True):
+seen = {}
+
+for f in sorted(os.listdir(approval_dir)):
     filepath = os.path.join(approval_dir, f)
     mtime = os.path.getmtime(filepath)
     mtime_str = time.strftime("%Y-%m-%d %H:%M", time.localtime(mtime))
 
-    if f.endswith('.approved'):
-        draft_key = f.replace('.approved', '')
-        logs.append({"draftKey": draft_key, "status": "approved", "timestamp": mtime_str})
-    elif '.sent.' in f and not f.endswith('.json') and 'message' not in f and 'meta' not in f:
-        draft_key = f.split('.sent.')[0]
-        logs.append({"draftKey": draft_key, "status": "sent", "timestamp": mtime_str})
-    elif f.endswith('.meta.json'):
-        draft_key = f.replace('.meta.json', '')
+    if '.sent-meta.' in f:
+        draft_key = f.split('.sent-meta.')[0]
         try:
             with open(filepath) as mf:
                 meta = json.load(mf)
-                logs.append({"draftKey": draft_key, "status": "pending", "timestamp": mtime_str,
-                             "chatId": meta.get("chatId",""), "customer": meta.get("customer","")})
+            msg_pattern = os.path.join(approval_dir, draft_key + '.sent-message.*')
+            msg_files = glob.glob(msg_pattern)
+            message = ""
+            if msg_files:
+                with open(msg_files[0], 'r', encoding='utf-8') as mf:
+                    message = mf.read().strip()
+            preview = message[:60] + ('...' if len(message) > 60 else '') if message else ''
+            seen[draft_key] = {
+                "draftKey": draft_key,
+                "chatId": meta.get("chatId", draft_key.split("__")[0]),
+                "approver": meta.get("approver", ""),
+                "isModified": meta.get("isModified", False),
+                "status": "sent",
+                "timestamp": meta.get("approvedAt", mtime_str),
+                "messagePreview": preview
+            }
         except: pass
 
-print(json.dumps(logs[:50]))
+    elif f.endswith('.approved'):
+        draft_key = f.replace('.approved', '')
+        if draft_key not in seen:
+            seen[draft_key] = {
+                "draftKey": draft_key,
+                "chatId": draft_key.split("__")[0],
+                "status": "approved",
+                "timestamp": mtime_str,
+                "messagePreview": ""
+            }
+
+    elif f.endswith('.meta.json'):
+        draft_key = f.replace('.meta.json', '')
+        if draft_key not in seen:
+            try:
+                with open(filepath) as mf:
+                    meta = json.load(mf)
+                seen[draft_key] = {
+                    "draftKey": draft_key,
+                    "chatId": meta.get("chatId", ""),
+                    "status": "pending",
+                    "timestamp": mtime_str,
+                    "messagePreview": ""
+                }
+            except: pass
+
+logs = sorted(seen.values(), key=lambda x: x.get("timestamp",""), reverse=True)
+print(json.dumps(logs[:50], ensure_ascii=False))
 PY
 )
 fi
