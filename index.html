@@ -428,39 +428,34 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <template x-for="log in (showAllLogs ? filteredLogs : filteredLogs.slice(0, 5))" :key="log.id">
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 cursor-pointer" @click="log.expanded = !log.expanded">
                                     <td class="px-4 py-3 text-xs text-gray-500" x-text="log.timestamp.substring(5, 16)"></td>
                                     <td class="px-4 py-3">
-                                        <span 
+                                        <span
                                             :class="getStatusColor(log.status)"
                                             class="px-2 py-1 text-xs font-medium rounded-full"
                                             x-text="getStatusName(log.status)"
                                         ></span>
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900 max-w-64 truncate" x-text="log.inquiry.substring(0, 50) + '...'"></td>
-                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="getCategoryName(log.category)"></td>
-                                    <td class="px-4 py-3">
-                                        <button @click="log.expanded = !log.expanded" class="text-primary-600 hover:text-primary-800 text-sm">
-                                            <span x-text="log.expanded ? '접기' : '상세'"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr x-show="log.expanded" class="bg-gray-50">
-                                    <td colspan="5" class="px-4 py-3">
-                                        <div class="space-y-2">
+                                    <td class="px-4 py-3 text-sm text-gray-900 max-w-md">
+                                        <div x-text="log.inquiry.substring(0, 60) + (log.inquiry.length > 60 ? '...' : '')" class="truncate"></div>
+                                        <div x-show="log.expanded" class="mt-3 p-3 bg-gray-50 rounded-lg space-y-2" @click.stop>
                                             <div>
-                                                <h4 class="text-sm font-medium text-gray-900">전체 문의:</h4>
-                                                <p class="text-sm text-gray-700 mt-1" x-text="log.inquiry"></p>
+                                                <span class="text-xs font-medium text-gray-500">전송 답변:</span>
+                                                <p class="text-sm text-gray-700 mt-1 whitespace-pre-line" x-text="log.draftAnswer || log.inquiry"></p>
                                             </div>
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-900">답변 초안:</h4>
-                                                <p class="text-sm text-gray-700 mt-1" x-text="log.draftAnswer"></p>
+                                            <div x-show="log.approver" class="text-xs text-gray-400">
+                                                <span>승인자: </span><span x-text="log.approver"></span>
+                                                <span x-show="log.isModified" class="ml-1 text-orange-500">(수정됨)</span>
                                             </div>
-                                            <div x-show="log.rejectionReason">
-                                                <h4 class="text-sm font-medium text-red-600">거부 사유:</h4>
-                                                <p class="text-sm text-red-600 mt-1" x-text="log.rejectionReason"></p>
+                                            <div x-show="log.chatId" class="text-xs text-gray-400">
+                                                <span>Chat ID: </span><span x-text="log.chatId"></span>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-600" x-text="getCategoryName(log.category)"></td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-primary-600 hover:text-primary-800 text-sm" x-text="log.expanded ? '접기' : '상세'"></span>
                                     </td>
                                 </tr>
                             </template>
