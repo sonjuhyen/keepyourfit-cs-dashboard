@@ -11,6 +11,8 @@ function csApp() {
         stats: {},
         recentActivities: [],
         showAllActivities: false,
+        dataSource: 'local',
+        lastUpdated: null,
         
         // 답변 관리
         approvedAnswers: [],
@@ -48,7 +50,8 @@ function csApp() {
         },
 
         // 초기화
-        init() {
+        async init() {
+            await dataManager.loadLiveData();
             this.loadData();
             this.autoProcessingEnabled = dataManager.getAutoProcessingEnabled();
             
@@ -92,11 +95,15 @@ function csApp() {
                     expanded: false
                 }));
                 
+                // 데이터 소스 표시
+                this.dataSource = this.stats.dataSource || 'local';
+                this.lastUpdated = this.stats.lastUpdated || null;
+
                 // 차트 초기화 (대시보드가 활성화된 경우)
                 if (this.activeTab === 'dashboard') {
                     setTimeout(() => chartManager.initCharts(this.stats), 100);
                 }
-                
+
             } catch (error) {
                 console.error('데이터 로드 실패:', error);
                 alert('데이터를 불러오는 중 오류가 발생했습니다.');
@@ -106,9 +113,11 @@ function csApp() {
         },
 
         // 데이터 새로고침
-        refreshData() {
+        async refreshData() {
+            await dataManager.loadLiveData();
             this.loadData();
-            alert('데이터가 새로고침되었습니다! 🦦');
+            const src = this.dataSource === 'live' ? '실시간 데이터' : '로컬 데이터';
+            alert(`${src}로 새로고침 완료! 🦦`);
         },
 
         // === 답변 관리 ===

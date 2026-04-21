@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "generatedAt": "2026-04-21T11:26:09Z",
+    "date": "2026-04-21",
+    "source": "collect-stats.sh"
+  },
+  "approvals": {
+    "total": 11,
+    "approved": 11,
+    "pending": 0,
+    "sent": 11,
+    "logs": [
+      {
+        "draftKey": "69e599e6b3427108b595__1776654840.907229",
+        "status": "sent",
+        "timestamp": "2026-04-20 12:15"
+      },
+      {
+        "draftKey": "69e5814c7c9b4646816b__1776648562.059669",
+        "status": "sent",
+        "timestamp": "2026-04-20 10:48"
+      },
+      {
+        "draftKey": "69e39fe2897c87c50138__1776525840.831029",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:37"
+      },
+      {
+        "draftKey": "69e39fe2897c87c50138__1776525565.896929",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:23"
+      },
+      {
+        "draftKey": "69e39fe2897c87c50138__1776525359.738539",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:18"
+      },
+      {
+        "draftKey": "69e39fe2897c87c50138__1776525329.315849",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:15"
+      },
+      {
+        "draftKey": "69e39fe2897c87c50138__1776525298.196979",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:15"
+      },
+      {
+        "draftKey": "69e39d811c6369955442",
+        "status": "sent",
+        "timestamp": "2026-04-19 00:05"
+      },
+      {
+        "draftKey": "69e389709fcef207efd4",
+        "status": "sent",
+        "timestamp": "2026-04-18 22:39"
+      },
+      {
+        "draftKey": "69e37c35f098b451d5bc",
+        "status": "sent",
+        "timestamp": "2026-04-18 21:42"
+      },
+      {
+        "draftKey": "69e37591f25cd0c47766",
+        "status": "sent",
+        "timestamp": "2026-04-18 21:15"
+      }
+    ]
+  },
+  "learnings": {
+    "patterns": [
+      {
+        "title": "MBP맥스 콘드로이친 1200/복용법/하루 몇 정",
+        "trigger": "\"콘드로이친 하루에 몇 정\" / 복용량 문의",
+        "approvalDate": "2026-04-18",
+        "approver": "son",
+        "hitCount": 1,
+        "answer": "안녕하세요, 킵유어핏입니다 😊\n\n  MBP맥스 콘드로이친 1200은 1일 1회 2정을 물과 함께 섭취해주시면 됩니다.\n  매일 같은 시간에 드시면 더 편하게 챙기실 수 있어요.\n\n  추가로 궁금한 점이 있으시면 언제든지 문의해주세요!\n  킵유어핏과 함께 건강한 하루 되세요! 😊🌿\n\n  - 킵유어핏 고객지원팀"
+      }
+    ],
+    "patternCount": 1,
+    "totalHits": 1
+  },
+  "spam": {
+    "keywords": [
+      "순위상승",
+      "상단노출",
+      "상단 노출",
+      "마케팅대행",
+      "컨설팅",
+      "컨설팅입니다",
+      "대출",
+      "투자",
+      "코인",
+      "비트코인",
+      "부업",
+      "SEO",
+      "키워드광고",
+      "대행사",
+      "최저가",
+      "효율 극대화",
+      "무료 설계",
+      "open.kakao",
+      "리워드",
+      "1페이지",
+      "검색노출",
+      "N사",
+      "C사",
+      "C-PANG",
+      "김팀장",
+      "연락부탁"
+    ],
+    "keywordCount": 26
+  }
+}

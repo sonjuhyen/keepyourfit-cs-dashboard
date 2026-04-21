@@ -46,7 +46,10 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-500" x-text="currentDate"></span>
-                    <button 
+                    <span x-show="dataSource === 'live'" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">LIVE</span>
+                    <span x-show="dataSource === 'local'" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">LOCAL</span>
+                    <span x-show="lastUpdated" class="text-xs text-gray-400" x-text="lastUpdated ? '갱신: ' + new Date(lastUpdated).toLocaleString('ko-KR') : ''"></span>
+                    <button
                         @click="refreshData()"
                         class="bg-primary-500 text-white px-3 py-1.5 rounded-lg hover:bg-primary-600 transition-colors text-sm"
                     >
