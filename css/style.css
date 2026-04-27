@@ -1,5 +1,7 @@
 /* 킵유어핏 CS 대시보드 커스텀 스타일 */
 
+[x-cloak] { display: none !important; }
+
 /* 기본 스타일 */
 * {
     margin: 0;

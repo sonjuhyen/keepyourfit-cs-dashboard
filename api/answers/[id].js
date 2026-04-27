@@ -1,24 +1,25 @@
-const { readJSON, writeJSON, json, parseId, readBody } = require('../_lib');
+const { json, readBody, workerFetch } = require('../_lib');
 
 module.exports = async (req, res) => {
-  const id = parseId(req);
-  if (!id) return json(res, { error: 'not found' }, 404);
+  const url = new URL(req.url, 'https://dummy.local');
+  const parts = url.pathname.split('/').filter(Boolean);
+  const category = parts[parts.length - 1];
+  if (!category) return json(res, { error: 'category required' }, 400);
+  const encoded = encodeURIComponent(category);
 
-  let items = readJSON('answers');
   if (req.method === 'PUT') {
     const body = await readBody(req);
-    const idx = items.findIndex(i => i.id === id);
-    if (idx === -1) return json(res, { error: 'not found' }, 404);
-    items[idx] = { ...items[idx], ...body, id };
-    writeJSON('answers', items);
-    return json(res, items[idx]);
+    const result = await workerFetch(`/api/answers/${encoded}`, {
+      method: 'PUT',
+      body: JSON.stringify(body)
+    });
+    return json(res, result.data, result.status || 502);
   }
+
   if (req.method === 'DELETE') {
-    const before = items.length;
-    items = items.filter(i => i.id !== id);
-    if (items.length === before) return json(res, { error: 'not found' }, 404);
-    writeJSON('answers', items);
-    return json(res, { ok: true });
+    const result = await workerFetch(`/api/answers/${encoded}`, { method: 'DELETE' });
+    return json(res, result.data, result.status || 502);
   }
+
   return json(res, { error: 'method not allowed' }, 405);
 };

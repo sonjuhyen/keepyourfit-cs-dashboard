@@ -1,9 +1,12 @@
 {
   "name": "keepyourfit-cs-dashboard",
-  "version": "1.0.0",
-  "description": "킵유어핏 CS 대시보드 API",
+  "version": "2.0.0",
+  "description": "킵유어핏 CS 대시보드 — Cloudflare Worker 프록시 기반",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

@@ -1,14 +1,20 @@
-const { readJSON, writeJSON, json, readBody } = require('./_lib');
+const { json, readBody, workerFetch } = require('./_lib');
 
 module.exports = async (req, res) => {
-  if (req.method === 'GET') return json(res, readJSON('answers'));
-  if (req.method === 'POST') {
-    const items = readJSON('answers');
-    const body = await readBody(req);
-    body.id = items.length ? Math.max(...items.map(i => i.id)) + 1 : 1;
-    items.push(body);
-    writeJSON('answers', items);
-    return json(res, body, 201);
+  if (req.method === 'GET') {
+    const result = await workerFetch('/api/answers');
+    if (!result.ok) return json(res, { error: 'worker fetch failed', detail: result.data }, result.status || 502);
+    return json(res, result.data.answers || {});
   }
+
+  if (req.method === 'POST') {
+    const body = await readBody(req);
+    const result = await workerFetch('/api/answers', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+    return json(res, result.data, result.status || 502);
+  }
+
   return json(res, { error: 'method not allowed' }, 405);
 };
